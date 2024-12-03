@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post List</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"> <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f8fa;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <header class="text-center py-10 bg-gradient-to-r from-teal-500 to-blue-600 text-white">
+        <h1 class="text-5xl font-semibold">Blog Posts</h1>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="max-w-lg mx-auto mb-10 p-6 bg-white shadow-lg rounded-lg">
+        <label for="country-filter" class="text-xl font-semibold text-gray-700">Filter by Country:</label>
+        <select id="country-filter" name="country" onchange="filterPosts()" class="mt-4 block w-full p-3 rounded-md border border-gray-300 bg-gray-50 focus:ring-2 focus:ring-teal-400 focus:outline-none transition">
+            <option value="">All Countries</option>
+            <option value="USA">USA</option>
+            <option value="India">India</option>
+            <option value="UK">UK</option>
+        </select>
+    </div>
+
+    <!-- Blog Post Cards Container -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-6" id="post-container">
+        {% if page_obj %}
+            {% for post in page_obj.object_list %}
+                <div class="post-card bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all transform hover:scale-105" data-country="{{ post.country }}">
+                    <div class="mb-4">
+                        <i class="fas fa-map-marker-alt text-teal-500 mr-2"></i>
+                        <span class="font-semibold text-gray-700">{{ post.country }}</span>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-teal-600 mb-3">{{ post.title }}</h2>
+                    <p class="text-gray-600 mb-5">{{ post.content|truncatewords:50 }}</p>
+                    <p class="text-sm text-gray-500"><em>Published on: {{ post.created_at|date:"F j, Y" }}</em></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-xl text-red-500">No blog posts available.</p>
+        {% endif %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-8 space-x-4">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition">« First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition">Previous</a>
+        {% endif %}
+
+        <span class="px-6 py-3 bg-teal-500 text-white rounded-lg">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition">Last »</a>
+        {% endif %}
+    </div>
+
+    <script>
+        function filterPosts() {
+            var selectedCountry = document.getElementById('country-filter').value;
+            var posts = document.querySelectorAll('.post-card');
+
+            posts.forEach(function(post) {
+                var postCountry = post.getAttribute('data-country');
+                if (selectedCountry === "" || postCountry === selectedCountry) {
+                    post.style.display = 'block'; // Show post
+                } else {
+                    post.style.display = 'none'; // Hide post
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

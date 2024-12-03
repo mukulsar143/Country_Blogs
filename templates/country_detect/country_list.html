@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Location Information</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007BFF;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info p {
+            font-size: 1.1rem;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #007BFF;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .info p strong {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .col h3 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #007BFF;
+            color: white;
+            margin-top: 30px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>User Location Information</h1>
+
+        <div class="info">
+            <p><strong>IP Address:</strong> {{ ip_address }}</p>
+            <p><strong>Country:</strong> {{ country }}</p>
+            <p><strong>City:</strong> {{ city }}</p>
+            <p><strong>Region:</strong> {{ region }}</p>
+            <p><strong>Region Name:</strong> {{ region_name }}</p>
+            <p><strong>Zip Code:</strong> {{ zip_code }}</p>
+            <p><strong>Latitude:</strong> {{ lat }}</p>
+            <p><strong>Longitude:</strong> {{ lon }}</p>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3>ISP Information</h3>
+                <p><strong>ISP:</strong> {{ isp }}</p>
+                <p><strong>AS Number:</strong> {{ as }}</p>
+                <p><strong>Organization:</strong> {{ org }}</p>
+            </div>
+
+            <div class="col">
+                <h3>Geographical Information</h3>
+                <p><strong>Continent:</strong> {{ continent }}</p>
+                <p><strong>Continent Code:</strong> {{ continent_code }}</p>
+                <p><strong>Timezone:</strong> {{ timezone }}</p>
+                <p><strong>Currency:</strong> {{ currency }}</p>
+            </div>
+
+            <div class="col">
+                <h3>Additional Info</h3>
+                <p><strong>Proxy:</strong> {{ proxy }}</p>
+                <p><strong>Hosting:</strong> {{ hosting }}</p>
+                <p><strong>Mobile:</strong> {{ mobile }}</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
